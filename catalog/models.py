@@ -22,6 +22,7 @@ class Product(models.Model):
         upload_to="product/img", verbose_name="Превью товара", **NULLABLE
     )
     category = models.ForeignKey(
+        Category,
         on_delete=models.SET_NULL,
         verbose_name="Категория",
         **NULLABLE,
