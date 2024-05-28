@@ -45,3 +45,15 @@ class Product(models.Model):
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
         ordering = ["name", "category"]
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Имя контакта")
+    email = models.EmailField()
+    message = models.TextField(verbose_name="Сообщение пользователя")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Контакт"
+        verbose_name_plural = "Контакты"
+        ordering = ['-created_at']
