@@ -10,11 +10,9 @@
                     <img src="/{{ product.image | media_filter }}">
                     <div class="card-body">
                         <p class="card-text">{{ product.name }}</p>
-                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            <a class="btn btn-primary" href="{% url 'catalog:products_details' product.pk %}" role="button">Views</a>
                             </div>
                             <small class="text-body-secondary">{{ product.created_at|timesince }}</small>
                         </div>
