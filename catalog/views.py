@@ -25,5 +25,7 @@ def contacts(request):
     return render(request, 'contacts.html', {'contacts': contacts})
 
 
-def base(request):
-    return render(request, 'base.html', {'base': base})
+def products_list(request):
+    products = Product.objects.all()
+    context = {"products": products}
+    return render(request, 'base.html', context)
