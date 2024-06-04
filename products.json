@@ -5,11 +5,11 @@
     "fields": {
       "name": "Смартфон iPhone 13",
       "description": "Новейший смартфон от Apple",
-      "image": "",
+      "image": "product/img/13iphone.png",
       "category": 3,
       "price": "79999.99",
-      "created_at": "2024-05-28T10:39:35.726Z",
-      "updated_at": "2024-05-28T10:39:35.727Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:16:05.556Z"
     }
   },
   {
@@ -18,11 +18,11 @@
     "fields": {
       "name": "Телевизор Samsung QN90A",
       "description": "Премиальный 4K QLED телевизор",
-      "image": "",
+      "image": "product/img/samsung_qn90a_01.jpg",
       "category": 3,
       "price": "99999.99",
-      "created_at": "2024-05-28T10:39:43.984Z",
-      "updated_at": "2024-05-28T10:39:43.984Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:18:18.889Z"
     }
   },
   {
@@ -31,11 +31,11 @@
     "fields": {
       "name": "Холодильник Bosch KGN39VL316",
       "description": "Современный холодильник с технологией NoFrost",
-      "image": "",
+      "image": "product/img/Холодильник_Bosch_KGN39VL316.jpeg",
       "category": 4,
       "price": "49999.99",
-      "created_at": "2024-05-28T10:41:09.644Z",
-      "updated_at": "2024-05-28T10:41:09.645Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:21:16.539Z"
     }
   },
   {
@@ -44,11 +44,11 @@
     "fields": {
       "name": "Стиральная машина LG F2V5HS0W",
       "description": "Современная стиральная машина с технологией AI DD",
-      "image": "",
+      "image": "product/img/LG_F2V5HS0W.jpg",
       "category": 4,
       "price": "39999.99",
-      "created_at": "2024-05-28T10:41:23.673Z",
-      "updated_at": "2024-05-28T10:41:23.673Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:43:24.596Z"
     }
   },
   {
@@ -57,11 +57,11 @@
     "fields": {
       "name": "Велосипед Schwinn Phocus 1600",
       "description": "Шоссейный велосипед для активного отдыха",
-      "image": "",
+      "image": "product/img/s-l1600.jpg",
       "category": 5,
       "price": "29999.99",
-      "created_at": "2024-05-28T10:41:33.551Z",
-      "updated_at": "2024-05-28T10:41:33.551Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:46:31.081Z"
     }
   },
   {
@@ -70,11 +70,11 @@
     "fields": {
       "name": "Беговая дорожка Sole Fitness F63",
       "description": "Профессиональная беговая дорожка для дома",
-      "image": "",
+      "image": "product/img/Sole_Fitness_F63.jpeg",
       "category": 5,
       "price": "59999.99",
-      "created_at": "2024-05-28T10:41:40.064Z",
-      "updated_at": "2024-05-28T10:41:40.064Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:47:33.627Z"
     }
   },
   {
@@ -83,11 +83,11 @@
     "fields": {
       "name": "Война и мир",
       "description": "Роман-эпопея Льва Толстого",
-      "image": "",
+      "image": "product/img/Толстои_Л.Н.Воина_и_мир_Т._1.jpg",
       "category": 6,
       "price": "599.99",
-      "created_at": "2024-05-28T10:41:48.090Z",
-      "updated_at": "2024-05-28T10:41:48.090Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:07:46.359Z"
     }
   },
   {
@@ -96,11 +96,11 @@
     "fields": {
       "name": "Преступление и наказание",
       "description": "Роман Федора Достоевского",
-      "image": "",
+      "image": "product/img/prestuplenie-i-nakazanie.jpg",
       "category": 6,
       "price": "499.99",
-      "created_at": "2024-05-28T10:41:54.972Z",
-      "updated_at": "2024-05-28T10:41:54.972Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:50:57.108Z"
     }
   },
   {
@@ -109,11 +109,11 @@
     "fields": {
       "name": "Деревянные кубики",
       "description": "Набор деревянных кубиков для детей",
-      "image": "",
+      "image": "product/img/kubiki.jpeg",
       "category": 7,
       "price": "199.99",
-      "created_at": "2024-05-28T10:42:04.434Z",
-      "updated_at": "2024-05-28T10:42:04.434Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:51:51.629Z"
     }
   },
   {
@@ -122,11 +122,11 @@
     "fields": {
       "name": "Мягкая игрушка \"Единорог\"",
       "description": "Мягкая игрушка в виде единорога",
-      "image": "",
+      "image": "product/img/unicorn.jpeg",
       "category": 7,
       "price": "999.99",
-      "created_at": "2024-05-28T10:42:10.939Z",
-      "updated_at": "2024-05-28T10:42:10.939Z"
+      "created_at": "2024-05-28T11:48:48.006Z",
+      "updated_at": "2024-06-01T05:52:45.611Z"
     }
   }
 ]
