@@ -10,7 +10,6 @@ def home(request):
         print(f"Описание: {product.description}")
         print(f"Цена: {product.price}")
         print(f"Дата создания: {product.created_at}")
-        print()
 
     return render(request, 'home.html')
 
@@ -24,3 +23,7 @@ def contacts(request):
 
     contacts = Contact.objects.all()
     return render(request, 'contacts.html', {'contacts': contacts})
+
+
+def base(request):
+    return render(request, 'base.html', {'base': base})
