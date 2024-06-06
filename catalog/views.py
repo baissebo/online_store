@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+
+from catalog.forms import ProductForm
 from catalog.models import Product, Contact
 
 
@@ -35,3 +37,15 @@ def products_details(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {"product": product}
     return render(request, 'products_details.html', context)
+
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            return redirect('catalog:products_details', product.pk)
+    else:
+        form = ProductForm()
+
+        return render(request, 'create_product.html', {'form': form})
