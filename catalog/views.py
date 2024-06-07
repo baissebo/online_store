@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 
 from catalog.forms import ProductForm
@@ -29,7 +30,10 @@ def contacts(request):
 
 def products_list(request):
     products = Product.objects.all()
-    context = {"products": products}
+    paginator = Paginator(products, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {"products": page_obj}
     return render(request, 'products_list.html', context)
 
 
