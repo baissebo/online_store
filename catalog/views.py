@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 
 from catalog.forms import ProductForm
 from catalog.models import Product, Contact
@@ -28,19 +29,24 @@ def contacts(request):
     return render(request, 'contacts.html', {'contacts': contacts})
 
 
-def products_list(request):
+# class ProductsList(ListView):
+#     model = Product
+#     template_name = 'product_list.html'
+
+
+def product_list(request):
     products = Product.objects.all()
     paginator = Paginator(products, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {"products": page_obj}
-    return render(request, 'products_list.html', context)
+    return render(request, 'product_list.html', context)
 
 
-def products_details(request, pk):
+def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {"product": product}
-    return render(request, 'products_details.html', context)
+    return render(request, 'product_detail.html', context)
 
 
 def create_product(request):
@@ -48,7 +54,7 @@ def create_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
-            return redirect('catalog:products_details', product.pk)
+            return redirect('catalog:product_detail', product.pk)
     else:
         form = ProductForm()
 
