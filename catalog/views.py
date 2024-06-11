@@ -1,61 +1,66 @@
-from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, FormView, CreateView
 
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, ContactForm
 from catalog.models import Product, Contact
 
 
-def home(request):
-    latest_products = Product.objects.order_by('-created_at')[:5]
+class HomeView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'latest_products'
+    order_by = '-created_at'
+    queryset = Product.objects.order_by('-created_at')[:5]
 
-    for product in latest_products:
-        print(f"Название: {product.name}")
-        print(f"Описание: {product.description}")
-        print(f"Цена: {product.price}")
-        print(f"Дата создания: {product.created_at}")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    return render(request, 'home.html')
+        latest_products = self.object_list
+
+        for product in latest_products:
+            print(f"Название: {product.name}")
+            print(f"Описание: {product.description}")
+            print(f"Цена: {product.price}")
+            print(f"Дата создания: {product.created_at}")
+            print()
+
+        return context
 
 
-def contacts(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
+class ContactsView(FormView):
+    template_name = 'catalog/contacts.html'
+    form_class = ContactForm
+    success_url = '/contacts/'
+
+    def form_valid(self, form):
+        name = form.cleaned_data['name']
+        phone = form.cleaned_data['phone']
+        message = form.cleaned_data['message']
         print(f'Имя: {name}, Телефон: {phone}, Сообщение: {message}')
+        return super().form_valid(form)
 
-    contacts = Contact.objects.all()
-    return render(request, 'contacts.html', {'contacts': contacts})
-
-
-# class ProductsList(ListView):
-#     model = Product
-#     template_name = 'product_list.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contacts'] = Contact.objects.all()
+        return context
 
 
-def product_list(request):
-    products = Product.objects.all()
-    paginator = Paginator(products, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {"products": page_obj}
-    return render(request, 'product_list.html', context)
+class ProductListView(ListView):
+    model = Product
+    paginate_by = 5
 
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {"product": product}
-    return render(request, 'product_detail.html', context)
+class ProductDetailView(DetailView):
+    model = Product
 
 
-def create_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            product = form.save()
-            return redirect('catalog:product_detail', product.pk)
-    else:
-        form = ProductForm()
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/create_product.html'
+    success_url = reverse_lazy('catalog:product_detail')
 
-        return render(request, 'create_product.html', {'form': form})
+    def form_valid(self, form):
+        product = form.save()
+        return redirect('catalog:product_detail', product.pk)

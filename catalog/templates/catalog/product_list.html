@@ -1,15 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for product in products %}
+            {% for product in object_list %}
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="/{{ product.image | media_filter }}">
                     <div class="card-body">
                         <p class="card-text">{{ product.name }}</p>
+                        <p class="card-text">Описание: {{ product.description|truncatechars:100 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}"
@@ -27,19 +28,19 @@
 
 <div class="paginator">
     <span class="step-links">
-        {% if products.has_previous %}
+        {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; Первая</a>
-            <a href="?page={{ products.previous_page_number }}">Предыдущая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
         {% endif %}
 
         <span class="current">
-            Страница {{ products.number }} из {{ products.paginator.num_pages }}.
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
         </span>
 
-        {% if products.has_next %}
-        <a href="?page={{ products.next_page_number }}">Следующая</a>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
 
-        <a href="?page={{ products.paginator.num_pages }}">Последняя &raquo;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
         {% endif %}
     </span>
 </div>
