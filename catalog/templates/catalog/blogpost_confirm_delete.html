@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+
+<title>{% block title %}Online blog · Small talks{% endblock %}</title>
+{% block content %}
+<h1>Удалить пост</h1>
+<p>Вы уверены, что хотите удалить пост "{{ blogpost.title }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a href="{% url 'catalog:blogpost_detail' blogpost.slug %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
+{% block product_actions %}
+{% endblock %}

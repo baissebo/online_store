@@ -1,0 +1,18 @@
+{% extends 'catalog/base.html' %}
+
+<title>{% block title %}Online blog · Small talks{% endblock %}</title>
+{% block content %}
+<div class="container my-5">
+    <h1>{% if object %}Редактировать пост{% else %}Создать пост{% endif %}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if not object %}
+        <button type="submit" class="btn btn-success">Создать</button>
+        {% else %}
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        {% endif %}
+    </form>
+    {% endblock %}
+    {% block product_actions %}
+    {% endblock %}

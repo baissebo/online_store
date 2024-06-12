@@ -1,9 +1,11 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, FormView, CreateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
+from django.urls import reverse
+from django.utils.text import slugify
 
 from catalog.forms import ProductForm, ContactForm
-from catalog.models import Product, Contact
+from catalog.models import Product, Contact, BlogPost
 
 
 class HomeView(ListView):
@@ -64,3 +66,36 @@ class ProductCreateView(CreateView):
     def form_valid(self, form):
         product = form.save()
         return redirect('catalog:product_detail', product.pk)
+
+
+class BlogPostListView(ListView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_list.html'
+    context_object_name = 'blogposts'
+    paginate_by = 10
+
+
+class BlogPostDetailView(DetailView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_detail.html'
+    context_object_name = 'blogpost'
+
+
+class BlogPostCreateView(CreateView):
+    model = BlogPost
+    fields = ("title", "content", "preview_image", "is_published")
+    template_name = 'catalog/blogpost_form.html'
+    success_url = reverse_lazy('catalog:blogpost_list')
+
+
+class BlogPostUpdateView(UpdateView):
+    model = BlogPost
+    fields = ("title", "content", "preview_image", "is_published")
+    template_name = 'catalog/blogpost_form.html'
+    context_object_name = 'blogposts'
+    success_url = reverse_lazy('catalog:blogpost_list')
+
+
+class BlogPostDeleteView(DeleteView):
+    model = BlogPost
+    success_url = reverse_lazy('catalog:blogpost_list')

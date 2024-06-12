@@ -243,6 +243,21 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-autoslug"
+version = "1.9.9"
+description = "An automated slug field for Django."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-autoslug-1.9.9.tar.gz", hash = "sha256:79f88e9433c1c88d8d3f2bec60d65ca98bffaff6c072b78aa5fd99d0e84a13dd"},
+    {file = "django_autoslug-1.9.9-py2.py3-none-any.whl", hash = "sha256:81cb018944498f27f439d439687cf902212cafbdb8c74c8ca0307543a3d82907"},
+]
+
+[package.extras]
+cyrillic = ["pytils (>=0.2)"]
+translitcodec = ["translitcodec (>=0.3)"]
+
+[[package]]
 name = "executing"
 version = "2.0.1"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -768,4 +783,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "5bfc1cb4c655167fb64a43f49ed952ac1fc7615db892bc201ea8ddcd904c3399"
+content-hash = "09262386e511973cd05b16dcd7956b48e7b9bff8e5e48c1be928e851c0e65498"
