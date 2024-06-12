@@ -14,7 +14,9 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% if object_list %}
             {% for blogpost in object_list %}
+            {% if blogpost.is_published %}
             <div class="col-md-4">
                 <div class="card" style="width: 300px;">
                     {% if blogpost.preview_image %}
@@ -34,10 +36,15 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
+            {% else %}
+            <div class="text-center" style="font-size: 1.5rem; font-weight: bold;">
+                Нет ни единого поста
+            </div>
+            {% endif %}
         </div>
     </div>
-
 
     {% if is_paginated %}
     <nav aria-label="Page navigation">
