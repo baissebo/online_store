@@ -9,8 +9,10 @@
         {{ form.as_p }}
         {% if not object %}
         <button type="submit" class="btn btn-success">Создать</button>
+        <a href="{% url 'catalog:blogpost_list' %}" class="btn btn-primary">Назад</a>
         {% else %}
         <button type="submit" class="btn btn-success">Сохранить</button>
+        <a href="{% url 'catalog:blogpost_list' %}" class="btn btn-primary">Назад</a>
         {% endif %}
     </form>
     {% endblock %}
