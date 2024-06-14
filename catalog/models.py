@@ -60,7 +60,7 @@ class Contact(models.Model):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок поста")
-    slug = AutoSlugField(populate_from='title', unique=True, verbose_name="Ссылка для поста")
+    slug = models.CharField(unique=True, verbose_name="Ссылка для поста")
     content = models.TextField(verbose_name="Текст поста")
     preview_image = models.ImageField(upload_to="blog_preview", verbose_name="Превью поста", **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
