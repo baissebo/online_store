@@ -14,10 +14,10 @@ urlpatterns = [
     path('products/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('create-product/', ProductCreateView.as_view(), name='create_product'),
     path('create-post/', BlogPostCreateView.as_view(), name='blogpost_create'),
-    path('post-update/<slug>/', BlogPostUpdateView.as_view(), name='blogpost_update'),
+    path('post-update/<int:pk>/', BlogPostUpdateView.as_view(), name='blogpost_update'),
     path('post-list/', BlogPostListView.as_view(), name='blogpost_list'),
-    path('post-detail/<slug:slug>/', BlogPostDetailView.as_view(), name='blogpost_detail'),
-    path('post-delete/<slug>/', BlogPostDeleteView.as_view(), name='blogpost_delete')
+    path('post-detail/<int:pk>/', BlogPostDetailView.as_view(), name='blogpost_detail'),
+    path('post-delete/<int:pk>/', BlogPostDeleteView.as_view(), name='blogpost_delete')
 ]
 
 if settings.DEBUG:

@@ -96,8 +96,15 @@ class BlogPostCreateView(CreateView):
     template_name = 'catalog/blogpost_form.html'
     success_url = reverse_lazy('catalog:blogpost_list')
 
+    def form_valid(self, form):
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.slug = slugify(new_post.title)
+            new_post.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
-        return reverse('catalog:blogpost_detail', kwargs={'slug': self.object.slug})
+        return reverse_lazy("catalog:blogpost_detail", args=[self.object.pk])
 
 
 class BlogPostUpdateView(UpdateView):
@@ -107,8 +114,15 @@ class BlogPostUpdateView(UpdateView):
     context_object_name = 'blogpost'
     success_url = reverse_lazy('catalog:blogpost_detail')
 
+    def form_valid(self, form):
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.slug = slugify(new_post.title)
+            new_post.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
-        return reverse('catalog:blogpost_detail', kwargs={'slug': self.object.slug})
+        return reverse_lazy("catalog:blogpost_detail", args=[self.object.pk])
 
 
 class BlogPostDeleteView(DeleteView):
