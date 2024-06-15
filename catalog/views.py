@@ -6,6 +6,7 @@ from django.utils.text import slugify
 
 from catalog.forms import ProductForm, ContactForm
 from catalog.models import Product, Contact, BlogPost
+from catalog.utils.congratulate_by_mail import congratulate_by_mail
 
 
 class HomeView(ListView):
@@ -87,6 +88,7 @@ class BlogPostDetailView(DetailView):
         obj = super().get_object(queryset)
         obj.views_count += 1
         obj.save()
+        congratulate_by_mail(obj)
         return obj
 
 

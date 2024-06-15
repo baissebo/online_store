@@ -1,6 +1,11 @@
+import configparser
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+config = configparser.ConfigParser()
+config.read('.env')
 
 SECRET_KEY = 'django-insecure-xjz_r!_2vbab7@7jkr0hf4nzh8!257ov(9z-^6h8dtmlgn1b(%'
 
@@ -91,3 +96,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config.get('email', 'EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config.get('email', 'EMAIL_HOST_PASSWORD')
+EMAIL_RECIPIENT = config.get('email', 'EMAIL_RECIPIENT')
+
