@@ -6,7 +6,9 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Добавить</button>
+        <button type="submit" class="btn btn-success">Добавить</button>
+        <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
+                                   role="button">Назад</a>
     </form>
 {% endblock %}
 {% block product_actions %}

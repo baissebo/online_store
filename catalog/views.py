@@ -40,7 +40,7 @@ class ContactsView(FormView):
         name = form.cleaned_data['name']
         phone = form.cleaned_data['phone']
         message = form.cleaned_data['message']
-        print(f'Имя: {name}, Телефон: {phone}, Сообщение: {message}')
+        print(f'Имя: {name} Телефон: {phone} Сообщение: {message}')
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
