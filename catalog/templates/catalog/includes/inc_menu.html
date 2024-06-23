@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
-                {% if request.resolver_match.url_name == 'product_list' or request.resolver_match.url_name == 'product_detail' or request.resolver_match.url_name == 'create_product' %}
+                {% if request.resolver_match.url_name in product_views %}
                 <h4>Online store</h4>
                 <p class="text-body-secondary">This store has a little bit of everything.</p>
                 {% else %}
@@ -15,7 +15,7 @@
                 <ul class="list-unstyled">
                     <li><a href="{% url 'catalog:home' %}" class="text-white">Главная</a></li>
                     <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
-                    {% if request.resolver_match.url_name == 'product_list' or request.resolver_match.url_name == 'product_detail' or request.resolver_match.url_name == 'create_product' %}
+                    {% if request.resolver_match.url_name in product_views %}
                     <li><a href="{% url 'catalog:blogpost_list' %}" class="text-white">Блог</a></li>
                     {% else %}
                     <li><a href="{% url 'catalog:product_list' %}" class="text-white">Товары</a></li>
