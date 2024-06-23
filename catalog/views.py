@@ -54,6 +54,9 @@ class ProductListView(ListView):
     model = Product
     paginate_by = 5
 
+    def get_queryset(self):
+        return Product.objects.order_by('-created_at')
+
 
 class ProductDetailView(DetailView):
     model = Product
