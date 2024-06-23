@@ -1,0 +1,22 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="container mt-1">
+    <h1>{% if object %}Редактировать товар{% else %}Добавление товара{% endif %}</h1>
+    <h1 class="mb-3"></h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if not object %}
+        <button type="submit" class="btn btn-success">Добавить</button>
+        <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
+           role="button">Назад</a>
+        {% else %}
+        <button type="submit" class="btn btn-success">Редактировать</button>
+        <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
+           role="button">Назад</a>
+        {% endif %}
+    </form>
+    {% endblock %}
+    {% block product_actions %}
+    {% endblock %}

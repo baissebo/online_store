@@ -14,8 +14,9 @@
                         <p class="card-text">Описание: {{ object.description|truncatechars:500 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
-                                   role="button">Назад</a>
+                                <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-sm btn-warning rounded me-1">Редактировать</a>
+                                <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-sm btn-danger rounded me-1">Удалить</a>
+                                <a href="{% url 'catalog:product_list' %}" class="btn btn-sm btn-primary rounded me-1">Назад</a>
                             </div>
                             <small class="text-body-secondary">{{ object.created_at|timesince }}</small>
                         </div>
