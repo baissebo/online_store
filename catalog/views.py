@@ -57,6 +57,13 @@ class ProductListView(ListView):
     def get_queryset(self):
         return Product.objects.order_by('-created_at')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for product in context['object_list']:
+            current_version = product.versions.filter(is_current=True).first()
+            if current_version:
+                product.current_version = current_version.version_name
+        return context
 
 class ProductDetailView(DetailView):
     model = Product

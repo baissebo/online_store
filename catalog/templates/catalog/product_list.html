@@ -10,6 +10,9 @@
                     <img src="/{{ product.image | media_filter }}">
                     <div class="card-body">
                         <p class="card-text">{{ product.name }}</p>
+                        {% if product.current_version %}
+                        <p class="card-text">Текущая версия: {{ product.current_version.version_name }}</p>
+                        {% endif %}
                         <p class="card-text">Описание: {{ product.description|truncatechars:100 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
@@ -39,7 +42,6 @@
 
         {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-
         <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
         {% endif %}
     </span>
