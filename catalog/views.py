@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -84,11 +83,11 @@ class ProductUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        ProductFormset = inlineformset_factory(Product, Version, VersionForm, extra=1)
+        ProductVersionFormset = inlineformset_factory(Product, Version, VersionForm, extra=1)
         if self.request.method == 'POST':
-            context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
+            context_data['formset'] = ProductVersionFormset(self.request.POST, instance=self.object)
         else:
-            context_data['formset'] = ProductFormset(instance=self.object)
+            context_data['formset'] = ProductVersionFormset(instance=self.object)
         return context_data
 
     def form_valid(self, form):

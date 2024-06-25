@@ -1,4 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.db import transaction
+
 from catalog.models import Product, Version
 
 FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно',
@@ -26,6 +29,32 @@ class VersionForm(forms.ModelForm):
     class Meta:
         model = Version
         fields = ('version_number', 'version_name', 'is_current')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        is_current = cleaned_data.get('is_current')
+        instance = self.instance
+
+        if is_current:
+            current_versions = Version.objects.filter(
+                product=instance.product,
+                is_current=True
+            ).exclude(pk=instance.pk)
+            if current_versions.exists():
+                raise ValidationError("Можно выбрать только одну активную версию продукта!")
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        version = super().save(commit=False)
+
+        if version.is_current:
+            Version.objects.filter(
+                product=version.product,
+                is_current=True
+            ).exclude(pk=version.pk).update(is_current=False)
+
+        return super().save(commit=commit)
 
 
 class ContactForm(forms.Form):
