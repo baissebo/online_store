@@ -1,12 +1,13 @@
 from django.conf import settings
+from django.forms import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from django.utils.text import slugify
 
-from catalog.forms import ProductForm, ContactForm
-from catalog.models import Product, Contact, BlogPost
+from catalog.forms import ProductForm, ContactForm, VersionForm
+from catalog.models import Product, Contact, BlogPost, Version
 from catalog.utils.congratulate_by_mail import congratulate_by_mail
 
 
@@ -57,13 +58,6 @@ class ProductListView(ListView):
     def get_queryset(self):
         return Product.objects.order_by('-created_at')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        for product in context['object_list']:
-            current_version = product.versions.filter(is_current=True).first()
-            if current_version:
-                product.current_version = current_version.version_name
-        return context
 
 class ProductDetailView(DetailView):
     model = Product
@@ -84,11 +78,29 @@ class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
-    success_url = reverse_lazy('catalog:product_detail')
+
+    def get_success_url(self):
+        return reverse('catalog:product_detail', args=[self.object.pk])
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        ProductFormset = inlineformset_factory(Product, Version, VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = ProductFormset(instance=self.object)
+        return context_data
 
     def form_valid(self, form):
-        product = form.save()
-        return redirect('catalog:product_detail', product.pk)
+        context_data = self.get_context_data()
+        formset = context_data['formset']
+        if form.is_valid() and formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
 class ProductDeleteView(DeleteView):

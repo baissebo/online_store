@@ -1,5 +1,5 @@
 from django import forms
-from catalog.models import Product
+from catalog.models import Product, Version
 
 FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно',
                    'обман', 'полиция', 'радар']
@@ -20,6 +20,12 @@ class ProductForm(forms.ModelForm):
                 raise forms.ValidationError(f'Слово "{word}" запрещено')
 
         return cleaned_data
+
+
+class VersionForm(forms.ModelForm):
+    class Meta:
+        model = Version
+        fields = ('version_number', 'version_name', 'is_current')
 
 
 class ContactForm(forms.Form):

@@ -1,22 +1,47 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-<div class="container mt-1">
-    <h1>{% if object %}Редактировать товар{% else %}Добавление товара{% endif %}</h1>
-    <h1 class="mb-3"></h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if not object %}
-        <button type="submit" class="btn btn-success">Добавить</button>
-        <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
-           role="button">Назад</a>
-        {% else %}
-        <button type="submit" class="btn btn-success">Редактировать</button>
-        <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
-           role="button">Назад</a>
-        {% endif %}
+<div class="container">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card">
+                {% if not object %}
+                <h3 class="card">Добавление товара</h3>
+                {% else %}
+                <h3 class="card">Редактирование товара</h3>
+                {% endif %}
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <div class="card-footer d-flex flex-column align-items-end">
+                    {% if not object %}
+                    <button type="submit" class="btn btn-success mb-2 w-100">Добавить</button>
+                    <a class="btn btn-primary w-100" href="{% url 'catalog:product_list' %}"
+                       role="button">Назад</a>
+                    {% else %}
+                    <button type="submit" class="btn btn-warning mb-2 w-100">Редактировать</button>
+                    <a class="btn btn-primary w-100" href="{% url 'catalog:product_detail' object.pk %}"
+                       role="button">Назад</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                {% if object %}
+                <h4 class="card">Создание версии</h4>
+                <div class="card-body">
+                    {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                    {{ form.as_p }}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </form>
-    {% endblock %}
-    {% block product_actions %}
-    {% endblock %}
+</div>
+{% endblock %}
+{% block product_actions %}
+{% endblock %}
