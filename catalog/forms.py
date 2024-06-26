@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms import BooleanField
+from django.forms import BooleanField, BaseInlineFormSet
 
 from catalog.models import Product, Version
 
@@ -40,31 +40,16 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
         model = Version
         fields = ('version_number', 'version_name', 'is_current')
 
+
+class BaseVersionInlineFormSet(BaseInlineFormSet):
     def clean(self):
-        cleaned_data = super().clean()
-        is_current = cleaned_data.get('is_current')
-        instance = self.instance
-
-        if is_current:
-            current_versions = Version.objects.filter(
-                product=instance.product,
-                is_current=True
-            ).exclude(pk=instance.pk)
-            if current_versions.exists():
-                raise ValidationError("Можно выбрать только одну активную версию продукта!")
-
-        return cleaned_data
-
-    def save(self, commit=True):
-        version = super().save(commit=False)
-
-        if version.is_current:
-            Version.objects.filter(
-                product=version.product,
-                is_current=True
-            ).exclude(pk=version.pk).update(is_current=False)
-
-        return super().save(commit=commit)
+        super().clean()
+        current_count = 0
+        for form in self.forms:
+            if not form.cleaned_data.get('DELETE', False) and form.cleaned_data.get('is_current', False):
+                current_count += 1
+        if current_count > 1:
+            raise ValidationError("Можно выбрать только одну версию!")
 
 
 class ContactForm(forms.Form):
