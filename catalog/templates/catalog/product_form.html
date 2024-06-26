@@ -13,7 +13,17 @@
                 <h3 class="card">Редактирование товара</h3>
                 {% endif %}
                 <div class="card-body">
-                    {{ form.as_p }}
+                    {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="alert alert-danger">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
                 </div>
                 <div class="card-footer d-flex flex-column align-items-end">
                     {% if not object %}
@@ -40,7 +50,7 @@
                 <div class="card-body">
                     {{ formset.management_form }}
                     {% for form in formset.forms %}
-                        {{ form.as_p }}
+                    {{ form.as_p }}
                     {% endfor %}
                 </div>
             </div>

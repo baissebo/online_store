@@ -29,9 +29,10 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         description = cleaned_data.get('description').lower()
 
         for word in FORBIDDEN_WORDS:
-            if word in name or word in description:
-                raise forms.ValidationError(f'Слово "{word}" запрещено')
-
+            if word in name:
+                self.add_error('name', f'Слово "{word}" запрещено в названии!')
+            if word in description:
+                self.add_error('description', f'Слово "{word}" запрещено в описании!')
         return cleaned_data
 
 
