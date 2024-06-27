@@ -59,7 +59,7 @@ class ProductListView(ListView):
 
         for product in products:
             product.current_version = Version.objects.filter(product=product, is_current=True).first()
-            return products
+        return products
 
 
 class ProductDetailView(DetailView):
