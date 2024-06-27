@@ -55,7 +55,11 @@ class ProductListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Product.objects.order_by('-created_at')
+        products = Product.objects.order_by('-created_at')
+
+        for product in products:
+            product.current_version = Version.objects.filter(product=product, is_current=True).first()
+            return products
 
 
 class ProductDetailView(DetailView):
