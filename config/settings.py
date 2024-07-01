@@ -22,6 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'catalog',
+    'users',
+    'phonenumber_field',
+
 ]
 
 MIDDLEWARE = [
@@ -106,3 +109,4 @@ EMAIL_HOST_USER = config.get('email', 'EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config.get('email', 'EMAIL_HOST_PASSWORD')
 EMAIL_RECIPIENT = config.get('email', 'EMAIL_RECIPIENT')
 
+AUTH_USER_MODEL = 'users.User'
