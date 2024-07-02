@@ -1,7 +1,8 @@
 from autoslug import AutoSlugField
 from django.db import models
 
-NULLABLE = {"blank": True, "null": True}
+from catalog.utils.utils import NULLABLE
+from users.models import User
 
 
 class Category(models.Model):
@@ -35,6 +36,13 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name="Дата последнего изменения"
+    )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        verbose_name="Владелец",
+        **NULLABLE,
+        related_name="products",
     )
 
     def __str__(self):
