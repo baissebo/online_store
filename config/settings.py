@@ -110,3 +110,6 @@ EMAIL_HOST_PASSWORD = config.get('email', 'EMAIL_HOST_PASSWORD')
 EMAIL_RECIPIENT = config.get('email', 'EMAIL_RECIPIENT')
 
 AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/base/'
+LOGOUT_REDIRECT_URL = '/base/'

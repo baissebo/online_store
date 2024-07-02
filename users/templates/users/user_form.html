@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="container">
+    <form class="row justify-content-center" method="post" enctype="multipart/form-data">
+        <div class="col-md-6">
+            <div class="card border-warning mb-0">
+                <div class="card-header bg-warning text-black">
+                    <h3 class="mb-3">Регистрация</h3>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-warning">
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block product_actions %}
+{% endblock %}
