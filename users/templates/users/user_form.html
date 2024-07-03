@@ -14,13 +14,12 @@
                 </div>
                 <div class="card-footer">
                     {% if request.resolver_match.url_name == 'register' %}
-                    <button type="submit" class="btn btn-warning">
-                        Зарегистрироваться
-                        {% else %}
-                        <button type="submit" class="btn btn-warning">
-                            Редактировать
-                            {% endif %}
-                        </button>
+                    <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
+                    <a href="{% url 'users:login' %}" class="btn btn-secondary">Назад </a>
+                    {% else %}
+                    <button type="submit" class="btn btn-warning">Редактировать</button>
+                    <a href="{% url 'users:profile' %}" class="btn btn-primary">Назад</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

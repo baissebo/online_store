@@ -6,7 +6,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, DetailView
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 
 from users.forms import UserRegisterForm, UserUpdateForm
 from users.models import User
@@ -81,3 +81,10 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    model = User
+    success_url = reverse_lazy('users:logout')
+    slug_field = 'email'
+    slug_url_kwarg = 'email'

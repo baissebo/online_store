@@ -39,7 +39,8 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'users:profile_edit' %}" class="btn btn-info">Редактировать профиль</a>
+                    <a href="{% url 'users:profile_edit' %}" class="btn btn-info ">Редактировать профиль</a>
+                    <a href="{% url 'users:profile_delete' user.pk %}" class="btn btn-danger w-50 text-black">Удалить профиль</a>
                 </div>
             </div>
         </div>
