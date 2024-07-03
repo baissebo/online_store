@@ -1,0 +1,50 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-info mb-4">
+                <div class="card-header bg-info text-black">
+                    <h1>Профиль пользователя</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p><strong>Имя:</strong> {{ user.first_name }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p><strong>Телефон:</strong> {{ user.phone }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p><strong>Страна:</strong> {{ user.country }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="Аватар" class="img-thumbnail">
+                            {% else %}
+                            <p>Нет аватара</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'users:profile_edit' %}" class="btn btn-info">Редактировать профиль</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block product_actions %}
+{% endblock %}

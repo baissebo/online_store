@@ -13,9 +13,14 @@
                     {{ form.as_p }}
                 </div>
                 <div class="card-footer">
+                    {% if request.resolver_match.url_name == 'register' %}
                     <button type="submit" class="btn btn-warning">
                         Зарегистрироваться
-                    </button>
+                        {% else %}
+                        <button type="submit" class="btn btn-warning">
+                            Редактировать
+                            {% endif %}
+                        </button>
                 </div>
             </div>
         </div>
