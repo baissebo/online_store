@@ -12,6 +12,19 @@
     }
   },
   {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Content manager",
+      "permissions": [
+        33,
+        34,
+        35,
+        36
+      ]
+    }
+  },
+  {
     "model": "auth.permission",
     "pk": 1,
     "fields": {
