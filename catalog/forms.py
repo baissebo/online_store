@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import BooleanField, BaseInlineFormSet
 
-from catalog.models import Product, Version
+from catalog.models import Product, Version, BlogPost
 
 FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно',
                    'обман', 'полиция', 'радар']
@@ -21,7 +21,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        fields = "__all__"
+        exclude = ("owner",)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -40,6 +40,12 @@ class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = ("is_published", "description", "category")
+
+
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        exclude = ("author", "views_count")
 
 
 class VersionForm(StyleFormMixin, forms.ModelForm):

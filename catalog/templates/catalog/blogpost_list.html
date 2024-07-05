@@ -6,7 +6,9 @@
 <div class="text-center">
     <h1 class="fw-light">Online blog</h1>
     <p class="lead text-body-secondary">Small talk</p>
+    {% if user.is_authenticated %}
     <a class="btn btn-success mt-3" href="{% url 'catalog:blogpost_create' %}" role="button">Создать пост</a>
+    {% endif %}
 </div>
 {% endblock %}
 

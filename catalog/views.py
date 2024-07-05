@@ -7,7 +7,8 @@ from django.views.generic import ListView, DetailView, FormView, CreateView, Upd
 from django.urls import reverse
 from django.utils.text import slugify
 
-from catalog.forms import ProductForm, ContactForm, VersionForm, BaseVersionInlineFormSet, ProductModeratorForm
+from catalog.forms import ProductForm, ContactForm, VersionForm, BaseVersionInlineFormSet, ProductModeratorForm, \
+    BlogPostForm
 from catalog.models import Product, Contact, BlogPost, Version
 from catalog.utils.congratulate_by_mail import congratulate_by_mail
 
@@ -147,24 +148,22 @@ class BlogPostDetailView(DetailView):
         return obj
 
 
-class BlogPostCreateView(CreateView):
+class BlogPostCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
     fields = ("title", "content", "preview_image", "is_published")
     template_name = 'catalog/blogpost_form.html'
     success_url = reverse_lazy('catalog:blogpost_list')
 
     def form_valid(self, form):
-        if form.is_valid():
-            new_post = form.save(commit=False)
-            new_post.slug = slugify(new_post.title)
-            new_post.save()
+        form.instance.author = self.request.user
+        form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("catalog:blogpost_detail", args=[self.object.pk])
 
 
-class BlogPostUpdateView(UpdateView):
+class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogPost
     fields = ("title", "content", "preview_image", "is_published")
     template_name = 'catalog/blogpost_form.html'
@@ -181,7 +180,14 @@ class BlogPostUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy("catalog:blogpost_detail", args=[self.object.pk])
 
+    def get_form_class(self):
+        user = self.request.user
 
-class BlogPostDeleteView(DeleteView):
+        if user == self.object.author or user.has_perms(["catalog.change_blogpost"]):
+            return BlogPostForm
+        raise PermissionDenied
+
+
+class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogPost
     success_url = reverse_lazy('catalog:blogpost_list')

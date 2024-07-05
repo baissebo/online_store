@@ -29,5 +29,5 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "slug", "content", "created_at", "is_published", "views_count")
+    list_display = ("id", "title", "slug", "content", "is_published", "views_count", "author")
     search_fields = ("title", "content")

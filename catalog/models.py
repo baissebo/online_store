@@ -106,6 +106,10 @@ class BlogPost(models.Model):
         default=0, verbose_name="Количество просмотров"
     )
 
+    author = models.ForeignKey(
+        User, on_delete=models.SET_NULL, **NULLABLE, verbose_name="Автор поста",
+    )
+
     def __str__(self):
         return self.title
 
