@@ -44,6 +44,8 @@ class Product(models.Model):
         **NULLABLE,
         related_name="products",
     )
+    is_published = models.BooleanField(
+        default=False, verbose_name="Опубликованные товары")
 
     def __str__(self):
         return self.name
@@ -52,6 +54,11 @@ class Product(models.Model):
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
         ordering = ["name", "category"]
+        permissions = [
+            ("can_edit_category", "Can edit any category"),
+            ("can_edit_description", "Can edit any description"),
+            ("can_unpublish_product", "Can unpublish of a product")
+        ]
 
 
 class Version(models.Model):
