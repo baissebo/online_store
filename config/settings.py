@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -34,6 +35,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+]
+
+CACHE_MIDDLEWARE_EXCLUDE_URLS = [
+    r'^/create-product/',
+    r'^/product-update/\d+/',
+    r'^/product-delete/\d+/',
+    r'^/create-post/',
+    r'^/post-update/\d+/',
+    r'^/post-delete/\d+/',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
