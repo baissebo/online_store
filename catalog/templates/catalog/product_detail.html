@@ -6,7 +6,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="/{{ product.image | media_filter }}">
+                    <img src="/{{ object.image | media_filter }}">
                     <div class="card-body">
                         <p class="card-text">{{ object.name }}</p>
                         <p class="card-text">Категория: {{ object.category }}</p>
@@ -14,14 +14,14 @@
                         <p class="card-text">Описание: {{ object.description|truncatechars:500 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                {% if user == product.owner %}
-                                <a href="{% url 'catalog:product_update' product.pk %}"
+                                {% if user == object.owner %}
+                                <a href="{% url 'catalog:product_update' object.pk %}"
                                    class="btn btn-sm btn-warning rounded me-1">Редактировать</a>
-                                <a href="{% url 'catalog:product_delete' product.pk %}"
+                                <a href="{% url 'catalog:product_delete' object.pk %}"
                                    class="btn btn-sm btn-danger rounded me-1">Удалить</a>
                                 <a href="{% url 'catalog:product_list' %}" class="btn btn-sm btn-primary rounded me-1">Назад</a>
                                 {% elif perms.catalog.can_edit_category and perms.catalog.can_edit_description %}
-                                <a href="{% url 'catalog:product_update' product.pk %}"
+                                <a href="{% url 'catalog:product_update' object.pk %}"
                                    class="btn btn-sm btn-warning rounded me-1">Редактировать</a>
                                 <a href="{% url 'catalog:product_list' %}" class="btn btn-sm btn-primary rounded me-1">Назад</a>
                                 {% else %}

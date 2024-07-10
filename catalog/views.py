@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from catalog.forms import ProductForm, ContactForm, VersionForm, BaseVersionInlineFormSet, ProductModeratorForm, \
     BlogPostForm
 from catalog.models import Product, Contact, BlogPost, Version
+from catalog.services import get_categories_cache
 from catalog.utils.congratulate_by_mail import congratulate_by_mail
 
 
@@ -63,6 +64,11 @@ class ProductListView(ListView):
         for product in products:
             product.current_version = Version.objects.filter(product=product, is_current=True).first()
         return products
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = get_categories_cache()
+        return context
 
 
 class ProductDetailView(DetailView):
