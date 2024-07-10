@@ -1,15 +1,14 @@
-import configparser
+from dotenv import load_dotenv
 import os
 from pathlib import Path
 
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-config = configparser.ConfigParser()
-config.read('.env')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-SECRET_KEY = 'django-insecure-xjz_r!_2vbab7@7jkr0hf4nzh8!257ov(9z-^6h8dtmlgn1b(%'
-
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -61,11 +60,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config.get('database', 'DB_NAME'),
-        'USER': config.get('database', 'DB_USER'),
-        'PASSWORD': config.get('database', 'DB_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT')
     }
 }
 
@@ -102,24 +101,24 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config.get('email', 'EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config.get('email', 'EMAIL_HOST_PASSWORD')
-EMAIL_RECIPIENT = config.get('email', 'EMAIL_RECIPIENT')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', False) == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_RECIPIENT = os.getenv('EMAIL_RECIPIENT')
 
 AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = '/users/profile/'
 LOGOUT_REDIRECT_URL = '/users/login/'
 
-CACHE_ENABLED = True
+CACHE_ENABLED = os.getenv('CACHE_ENABLED', False) == 'True'
 
 if CACHE_ENABLED:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': 'redis://localhost:6379'
+            'LOCATION': os.getenv('LOCATION')
         }
     }
