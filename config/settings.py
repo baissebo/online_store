@@ -39,12 +39,12 @@ MIDDLEWARE = [
 ]
 
 CACHE_MIDDLEWARE_EXCLUDE_URLS = [
-    r'^/create-product/',
-    r'^/product-update/\d+/',
-    r'^/product-delete/\d+/',
-    r'^/create-post/',
-    r'^/post-update/\d+/',
-    r'^/post-delete/\d+/',
+    r'/create-product/',
+    r'/product-update/\d+/',
+    r'/product-delete/\d+/',
+    r'/create-post/',
+    r'/post-update/\d+/',
+    r'/post-delete/\d+/',
 
 ]
 
